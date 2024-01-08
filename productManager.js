@@ -45,3 +45,30 @@ class ProductManager {
         const product = this.products.find(product => product.id === id);
         return product;
     }
+
+    updateProduct(id, updateProduct){
+        const index = this.products.findIndex(product => product.id === id);
+        this.products[index] = { ...this.products[index], ...updateProduct };
+        fs.writeFileSync(this.productsPath,JSON.stringify(this.products), 'utf-8');
+        
+        if(index !== -1){
+            
+        } else {
+            return console.log(` Error al actualizar el id ${id}, no se encontraron resultados`)
+        }
+
+    }
+
+    deleteProductById(id){
+        const index = this.products.findIndex(product => product.id === id);
+        if(index !== -1){
+            this.products.splice(index,1);
+            fs.writeFileSync(this.productsPath,JSON.stringify(this.products),'utf-8');
+            
+        }else{
+            return console.log(` Error al eliminar el id ${id}, no se encontraron resultados`)
+        }
+
+
+    }
+}
